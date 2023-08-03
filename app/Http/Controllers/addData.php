@@ -21,10 +21,13 @@ class addData extends Controller
         $productDetail = $req->productDetail;
         $productQty = $req->productQty;
         $productCategory = $req->productCategory;
-        // $productImgName = $req->file('productImg');
+        $productPrice = $req->productPrice;
+        $productImg= $req->file('productImg');
+        $productImageName=time().".".$productImg->getClientOriginalExtension();
+        $req->file('productImg')->move("products",$productImageName);
         // $productImg = file_get_contents($productImgName);
-
-        DB::table("producrMaster")->insert(["productName" => $productName, "id" => $userId, "productDetail" => $productDetail, "productQty" => $productQty,"productCategory" => $productCategory]);
+        DB::table("producrMaster")->insert(["productName" => $productName, "id" => $userId, "productDetail" => $productDetail, "productQty" => $productQty,"productCategory" => $productCategory,"productPrice"=>$productPrice,"productimg"=>$productImageName]);
+        return redirect()->route("seller.home");
 
     }
 }

@@ -42,8 +42,9 @@ class authController extends Controller
         $data["u_type"] = (int) $usertype;
         $data["password"] = Hash::make($req->password);
         $user = User::create($data);
+        
         if ($user) {
-            return redirect()->route("seller.info");
+            return redirect()->route("seller.info",["id"=>$user["id"]]);
         } else {
             return "fail";
         }

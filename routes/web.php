@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\addData;
 use App\Http\Controllers\authController;
+use App\Http\Controllers\deletData;
+use App\Http\Controllers\orderProduct;
 use App\Http\Controllers\submitData;
 use App\Http\Controllers\viewController;
 use Illuminate\Support\Facades\Route;
@@ -19,20 +21,23 @@ use Illuminate\Support\Facades\Route;
 
 Route::get("/",[viewController::class,"loginView"])->name("user.login");
 Route::get("/register",[viewController::class,"registerView"])->name("user.register");
-Route::get("/sellerInfo",[viewController::class,"sellerinfoView"])->name("seller.info");
+Route::get("/sellerInfo/{id}",[viewController::class,"sellerinfoView"])->name("seller.info");
 Route::get("/buyerDashboard",[viewController::class,"byerDashBoardView"])->name("buyer.home");
+Route::get("/seller/category/delet/{categoryId}",[deletData::class,"deletCategory"]);
 Route::get('/logout', [authController::class, "logout"])->name("logout");
 
 Route::group(['middleware' => 'auth'], function () {
+    Route::get("/order/{ProductMasterid}/{id}",[orderProduct::class,"placeOrder"]);
     Route::get("/seller/home",[viewController::class,"sellerDashBoardView"])->name("seller.home");
     Route::get("/seller/category/{id}",[viewController::class,"sellerCategoryView"])->name("seller.category");
     Route::get("/seller/product/{id}",[viewController::class,"sellerProductView"])->name("seller.product");
     Route::get("/seller/profile/{id}",[viewController::class,"sellerProfileView"])->name("seller.profile");
+    Route::get("/seller/orders/{id}",[viewController::class,"sellerOrderView"])->name("seller.order");
 });
 
 
 Route::post("/",[authController::class,"loginPost"])->name("user.loginPost");
-Route::post("/sellerInfo",[submitData::class,"submitSellerInfo"])->name("postSeller.info");
+Route::post("/sellerInfo/{id}",[submitData::class,"submitSellerInfo"])->name("postSeller.info");
 Route::post("/register",[authController::class,"registerPost"])->name("user.registerpost");
 Route::post("/addCategory",[addData::class,"addCategory"])->name("post.category");
 Route::post("/addProduct",[addData::class,"addProduct"])->name("post.product");

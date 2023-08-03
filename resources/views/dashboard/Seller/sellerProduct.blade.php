@@ -43,7 +43,12 @@
             @endforeach
            </select>
         </div>
-
+        <div class="mb-6 flex flex-col">
+            <label for="productPrice">Product Price</label>
+            <input type="text" id="productPrice" name="productPrice"
+                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                required>
+        </div>
         <button type="submit"
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add
             Task</button>
@@ -71,6 +76,7 @@
                                 <th scope="col" class="text-center" style="text-align: center">Product Qty </th>
                                 <th scope="col" class="text-center" style="text-align: center">Product Img </th>
                                 <th scope="col" class="text-center" style="text-align: center">Product Category </th>
+                                <th scope="col" class="text-center" style="text-align: center">Product Price </th>
                             </tr>
                         </thead>
                         <tbody>
@@ -82,8 +88,11 @@
                                     </td>
                                     <td class="text-center">{{$data["productQty"]}}
                                     </td>
-                                    <td class="text-center"><img src="{{url("E:\web development\FrameWork\project\MechFast\storage\app\public\images\1690569819.png")}}" alt="ntg" srcset="">
+                                    <td class=" flex justify-center"><img src="/products/{{$data["productImg"]}}" class="h-[3.5rem] w-auto" alt="ntg" srcset="">
+                                    </td>
                                     <td class="text-center">{{$data["productCategory"]}}
+                                    </td>
+                                    <td class="text-center">{{$data["productPrice"]}}
                                     </td>
                                     {{-- <td class="text-center">
                                         <a href={{ 'delet/' . $data['taskID'] }}>

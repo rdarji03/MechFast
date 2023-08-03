@@ -20,7 +20,7 @@
     
         <button type="submit"
             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add
-            Task</button>
+            </button>
     </form>
 </div>
 <div class="container flex">
@@ -32,10 +32,10 @@
             @include("navbar.topNavbar")
             <div class="actionsButton flex gap-3">
                 <button type="button" class="text-white bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5" onclick="showForm()">Add
-                    Task</button>
-                <button type="button" class="bg-red-500 text-white rounded-lg text-sm px-5 py-2.5">Export PDF</button>
+                    Category</button>
+                {{-- <button type="button" class="bg-red-500 text-white rounded-lg text-sm px-5 py-2.5">Export PDF</button>
                 <button type="button" class="bg-green-700 text-white rounded-lg text-sm px-5 py-2.5">Export
-                    Excel</button>
+                    Excel</button> --}}
             </div>
             <div class="categoryTable flex justify-center">
                 <div class="dataTable  border-2 rounded border-gray-950 w-[75%]" style="max-height: 36rem;overflow: auto; background:white">

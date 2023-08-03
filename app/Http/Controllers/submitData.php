@@ -7,10 +7,8 @@ use Illuminate\Support\Facades\DB;
 
 class submitData extends Controller
 {
-    public function submitSellerInfo(Request $req)
+    public function submitSellerInfo(Request $req,$id)
     {
-        $id = DB::table("users")->where("u_type", 1)->get("id")->last();
-        $uId=json_decode(json_encode($id), true);
        
         $uname = $req->name;
         $uemail = $req->email;
@@ -21,7 +19,7 @@ class submitData extends Controller
         $uCity = $req->sCity;
         $uPincode = $req->pincode;
         $uState = $req->uState;
-        DB::table("userDetail")->insert(["id" => $uId["id"], "sellerName" => $uname, "sellerEmail" => $uemail, "sellerNumber" => $unumber, "sellerStoreNO" => $uHouseNo, "sellerArea" => $uArea, "sellerLandmark" => $uLandmark, "sellerCity" => $uCity, "sellerState" => $uState, "sellerPincode" => $uPincode]);
+        DB::table("userDetail")->insert(["id" => $id, "sellerName" => $uname, "sellerEmail" => $uemail, "sellerNumber" => $unumber, "sellerStoreNO" => $uHouseNo, "sellerArea" => $uArea, "sellerLandmark" => $uLandmark, "sellerCity" => $uCity, "sellerState" => $uState, "sellerPincode" => $uPincode]);
         
 
     }
