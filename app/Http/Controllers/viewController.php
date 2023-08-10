@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\itemCategory;
+use App\Models\ord;
 use App\Models\productView;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -31,9 +32,26 @@ class viewController extends Controller
         $products = $productList->get();
         return view("dashboard.Buyer.buyerHome", ["products" => $products]);
     }
-    public function sellerDashBoardView()
+    public function sellerDashBoardView($sid)
     {
-        return view("dashboard.Seller.sellerhome");
+        $totalOrders = DB::table("orderedProduct")
+            ->select(DB::raw('count(orderedProductid) as totalOrder'))
+            ->where('sellerid', '=', $sid)->count();
+
+        $totalRevenue = DB::table('sellerOrder')
+            ->select(DB::raw('SUM(cast( productPrice as int)) as totalSale'))->where('sellerid', $sid)
+            ->get();
+        $totalSale = json_decode($totalRevenue, true);
+        $orderPending = DB::table('sellerOrder')
+            ->select(DB::raw('count(orderStatus) as pendingOrder'))->where('sellerid', $sid)->where("orderStatus", 0)
+            ->get();
+        $totalPending = json_decode($orderPending, true);
+        $inDelivery = DB::table('sellerOrder')
+            ->select(DB::raw('count(orderStatus) as pendingOrder'))->where('sellerid', $sid)->where("orderStatus", 1)
+            ->get();
+        $totalOrderinDelivery = json_decode($inDelivery, true);
+
+        return view("dashboard.Seller.sellerhome", ["totalorder" => $totalOrders, "totalSale" => $totalSale,"totalPending"=>$totalPending,"totalOrderinDelivery"=>$totalOrderinDelivery]);
     }
     public function sellerCategoryView($id)
     {
@@ -44,8 +62,8 @@ class viewController extends Controller
     public function sellerProductView($id)
     {
 
-        
-        $cData = itemCategory::where("id",$id)->get();
+
+        $cData = itemCategory::where("id", $id)->get();
         $productData = DB::table("producrMaster")->where("id", $id)->get();
         $data = json_decode($productData, true);
         return view("dashboard.Seller.sellerProduct", ["cData" => $cData, "pData" => $data]);
@@ -71,14 +89,14 @@ class viewController extends Controller
     public function sellerOrderView($id)
     {
         $productData = DB::table("sellerOrder")->where("sellerId", $id)->get();
-        $orderList= json_decode($productData, true);
-        return view("dashboard.Seller.sellerOrder",["products"=>$orderList]);
+        $orderList = json_decode($productData, true);
+        return view("dashboard.Seller.sellerOrder", ["products" => $orderList]);
     }
-    public function viewOrder($id){
+    public function viewOrder($id)
+    {
 
-        $products =DB::table('sellerOrder')->where("id",$id)->get();
-        $orderList= json_decode($products, true);
-        return view("dashboard.Buyer.buyerOrder",["orderProducts"=>$orderList]);
-
+        $products = DB::table('sellerOrder')->where("id", $id)->get();
+        $orderList = json_decode($products, true);
+        return view("dashboard.Buyer.buyerOrder", ["orderProducts" => $orderList]);
     }
 }

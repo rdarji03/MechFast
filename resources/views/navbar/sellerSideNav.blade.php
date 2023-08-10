@@ -9,7 +9,7 @@
                     <div class="p-2">
                         <ul>
                             <li class=" my-5">
-                                <a class="text-white text-decoration-none p-1" href="/seller/home">Dashboard </a>
+                                <a class="text-white text-decoration-none p-1" href="/seller/home/{{auth()->user()->id}}">Dashboard </a>
                             </li>
                             <li class=" my-5">
                                 <a class="text-white text-decoration-none p-1" href="/seller/category/{{auth()->user()->id}}">Category </a>

@@ -29,7 +29,7 @@ Route::get('/logout', [authController::class, "logout"])->name("logout");
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get("/order/{ProductMasterid}/{id}/{sid}",[orderProduct::class,"placeOrder"]);
-    Route::get("/seller/home",[viewController::class,"sellerDashBoardView"])->name("seller.home");
+    Route::get("/seller/home/{uid}",[viewController::class,"sellerDashBoardView"])->name("seller.home");
     Route::get("/seller/category/{id}",[viewController::class,"sellerCategoryView"])->name("seller.category");
     Route::get("/seller/product/{id}",[viewController::class,"sellerProductView"])->name("seller.product");
     Route::get("/seller/profile/{id}",[viewController::class,"sellerProfileView"])->name("seller.profile");
