@@ -44,8 +44,8 @@ class viewController extends Controller
     public function sellerProductView($id)
     {
 
-        $categoryData = new itemCategory;
-        $cData = $categoryData->get();
+        
+        $cData = itemCategory::where("id",$id)->get();
         $productData = DB::table("producrMaster")->where("id", $id)->get();
         $data = json_decode($productData, true);
         return view("dashboard.Seller.sellerProduct", ["cData" => $cData, "pData" => $data]);
@@ -59,10 +59,26 @@ class viewController extends Controller
         $uInfo = json_decode($userProfile, true);
         return view("dashboard.Seller.sellerProfile", ["uInfo" => $uInfo, "states" => $stateData]);
     }
+    public function buyerProfileView($id)
+    {
+        $stateList = Http::get('https://mechfastapi.pythonanywhere.com/states/');
+        $stateData = json_decode($stateList, true);
+        //https://mechfast.pythonanywhere.com/city/?state=Gujarat
+        $userProfile = DB::table("userDetail")->where("id", $id)->get();
+        $uInfo = json_decode($userProfile, true);
+        return view("dashboard.Buyer.buyerProfile", ["uInfo" => $uInfo, "states" => $stateData]);
+    }
     public function sellerOrderView($id)
     {
         $productData = DB::table("sellerOrder")->where("sellerId", $id)->get();
         $orderList= json_decode($productData, true);
         return view("dashboard.Seller.sellerOrder",["products"=>$orderList]);
+    }
+    public function viewOrder($id){
+
+        $products =DB::table('sellerOrder')->where("id",$id)->get();
+        $orderList= json_decode($products, true);
+        return view("dashboard.Buyer.buyerOrder",["orderProducts"=>$orderList]);
+
     }
 }

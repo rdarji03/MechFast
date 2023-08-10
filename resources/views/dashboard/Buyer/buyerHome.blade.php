@@ -1,44 +1,48 @@
 @extends("Layouts.index")
-@section('title', 'SellerDashboard')
+@section('title', 'Home')
 @section("content")
 
 
 <div class="sellerContainer flex">
-    <div class="sidenav w-[12%]">
+    <div class="sidenav w-[14%]">
         @include("navbar.buyerSideNav")
     </div>
-    <div class="sellerSection w-[88%]">
+    <div class="sellerSection w-[86%]">
         <div>
             @include("navbar.topNavbar")
             <div class="productList">
                 <div class="productContainer flex justify-center my-4">
 
                     @foreach ($products as $item)
-
-                    <div class="flex gap-3">
-                        <div class="group relative">
-                            <div
-                                class="aspect-h-1 aspect-w-1 w-full overflow-hidden rounded-md bg-gray-200 l-75 lg:h-80">
+                    <div class="max-w-sm w-full sm:w-1/2 lg:w-[24%] py-6 px-3 rounded">
+                        <div class="bg-white shadow-xl rounded-lg">
+                            <div class="bg-cover bg-center h-56 p-4 flex justify-center" >
                                 <img src="/products/{{$item["productImg"]}}"
-                                    class="h-full w-full object-cover object-center lg:h-full lg:w-full">
+                                class="h-[10rem] w-auto object-cover object-center rounded">
                             </div>
-                            <div class="mt-4 flex justify-between">
-                                <div>
-                                    <h3 class="text-sm text-gray-700">
-                                        <a href="#">
-                                            <span aria-hidden="true" class="absolute inset-0"></span>
-                                            {{$item["productName"]}}
-                                        </a>
-                                    </h3>
-                                    <p class="mt-1 text-sm text-gray-500"> {{$item["productCategory"]}}</p>
+                            <div class="p-1">
+                                <p class="text-xl text-gray-900">{{$item["productDetail"]}}-{{$item["productName"]}}</p>
+                            </div>
+                            <div class="flex p-4 border-t border-gray-300 text-gray-700">
+                                <div class="flex-1 inline-flex items-center">
+                                   
+                                    <p><span class="text-gray-900 font-bold">Category-{{$item["productCategory"]}}</p>
                                 </div>
-                                <p class="text-sm font-medium text-gray-900">{{$item["productPrice"]}}</p>
+                                <div class="flex-1 inline-flex items-center">
+                                   
+                                    <p><span class="text-gray-900 font-bold">{{$item["productPrice"]}}Rs</p>
+                                </div>
                             </div>
-
+                            
+                                <a href="/order/{{$item["ProductMasterid"]}}/{{auth()->user()->id}}/{{$item["id"]}}" class="flex justify-center p-1 border-t border-gray-300 bg-gray-100">
+                                    Order
+                                </a>
+                           
                         </div>
-                        <a href="/order/{{$item["ProductMasterid"]}}/{{auth()->user()->id}}">
-                            Order
-                        </a>
+                    </div>
+
+                        
+                      
                         @endforeach
                     </div>
                 </div>

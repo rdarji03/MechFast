@@ -50,18 +50,18 @@
                 required>
         </div>
         <button type="submit"
-            class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add
-            Task</button>
+            class="text-white  bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add
+            product</button>
     </form>
 </div>
-<div class="container flex">
-    <div class="sidenav w-[12%]">
+<div class="Container flex">
+    <div class="sidenav w-[14%]">
         @include("navbar.sellerSideNav")
     </div>
-    <div class="sellerSection w-[88%] flex flex-col">
+    <div class="sellerSection w-[86%] flex flex-col">
         <div>
             @include("navbar.topNavbar")
-            <div class="actionsButton flex gap-3">
+            <div class="actionsButton flex gap-3 justify-center my-3">
                 <button type="button" class="text-white bg-[#fe7e36] font-medium rounded-md text-sm px-5 py-2.5"
                     onclick="showForm()">Add Product</button>
             </div>

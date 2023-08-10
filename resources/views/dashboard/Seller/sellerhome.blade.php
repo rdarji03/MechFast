@@ -4,10 +4,10 @@
 
 
 <div class="sellerContainer flex">
-    <div class="sidenav w-[12%]">
+    <div class="sidenav w-[14%]">
         @include("navbar.sellerSideNav")
     </div>
-    <div class="sellerSection w-[88%]">
+    <div class="sellerSection w-[86%]">
         @include("navbar.topNavbar")
     </div>
 </div>

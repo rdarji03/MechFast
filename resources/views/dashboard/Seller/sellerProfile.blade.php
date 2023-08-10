@@ -2,7 +2,7 @@
 @section('title', 'Profile')
 @section("content")
 <div class="detailForm  fixed  z-10  min-h-full w-full transition-all hidden">
-    <form class="space-y-4 md:space-y-6 bg-[#ECECEC] shadow-lg rounded p-1" method="POST" action="/edit">
+    <form class="space-y-4 md:space-y-6 bg-[#ECECEC] shadow-lg rounded p-1" method="POST" action="/editProfile">
         @csrf
         <div class="closeIcon flex justify-end">
             <img src="{{asset("img/action-icons/close.png")}}" alt="" srcset=""
@@ -90,20 +90,15 @@
             </div>
         </div>
         <button type="submit"
-            class="w-full text-white bg-blue-500 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign
-            in</button>
-        <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-            Don’t have an account yet? <a href="/register"
-                class="font-medium text-primary-600 hover:underline dark:text-primary-500">Sign
-                up</a>
-        </p>
+            class="w-full text-white bg-blue-500 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Update Profile</button>
+       
     </form>
 </div>
-<div class="container flex">
-    <div class="sidenav w-[12%]">
+<div class="Container flex">
+    <div class="sidenav w-[14%]">
         @include("navbar.sellerSideNav")
     </div>
-    <div class="sellerSection w-[88%] flex flex-col">
+    <div class="sellerSection w-[86%] flex flex-col">
         <div>
             @include("navbar.topNavbar")
             <div class=" w-full flex justify-center items-center p-[1rem] ">

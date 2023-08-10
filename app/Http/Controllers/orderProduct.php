@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\DB;
 
 class orderProduct extends Controller
 {
-    function placeOrder($pid,$id){
-        DB::table("orderedProduct")->insert(["ProductMasterid"=>$pid,"id"=>$id]);
-        return "order placed";
+    function placeOrder($pid,$id,$sid){
+        DB::table("orderedProduct")->insert(["ProductMasterid"=>$pid,"id"=>$id,"sellerid"=>$sid]);
+        return redirect()->back();
     }
 }

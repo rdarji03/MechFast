@@ -23,19 +23,16 @@
             </button>
     </form>
 </div>
-<div class="container flex">
-    <div class="sidenav w-[12%]">
+<div class="Container flex">
+    <div class="sidenav w-[14%]">
         @include("navbar.sellerSideNav")
     </div>
-    <div class="sellerSection w-[88%] flex flex-col">
+    <div class="sellerSection w-[86%] flex flex-col">
         <div>
             @include("navbar.topNavbar")
-            <div class="actionsButton flex gap-3">
-                <button type="button" class="text-white bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5" onclick="showForm()">Add
+            <div class="actionsButton flex gap-3 justify-center my-3">
+                <button type="button" class="text-white bg-[#ff6b18] font-medium rounded-lg text-sm px-5 py-2.5" onclick="showForm()">Add
                     Category</button>
-                {{-- <button type="button" class="bg-red-500 text-white rounded-lg text-sm px-5 py-2.5">Export PDF</button>
-                <button type="button" class="bg-green-700 text-white rounded-lg text-sm px-5 py-2.5">Export
-                    Excel</button> --}}
             </div>
             <div class="categoryTable flex justify-center">
                 <div class="dataTable  border-2 rounded border-gray-950 w-[75%]" style="max-height: 36rem;overflow: auto; background:white">
@@ -62,12 +59,12 @@
                                                     class="h-[1.5rem]" alt="description of myimage">
                                             </button>
                                         </a>
-                                        <a href={{ 'edit/' . $data['categoryId'] }} target="_blank">
+                                        {{-- <a href={{ 'edit/' . $data['categoryId'] }} target="_blank">
                                             <button class="bg-blue-400 mx-2 p-1  border rounded">
                                                 <img src="{{ asset("img/action-icons/edit.png") }}"
                                                     class="h-[1.5rem]" alt="description of myimage">
                                             </button>
-                                        </a>
+                                        </a> --}}
                                     </td>
                                 </tr>
                                 @endforeach

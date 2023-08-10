@@ -9,17 +9,13 @@
                     <div class="p-2">
                         <ul>
                             <li class=" my-5">
-                                <a class="text-white text-decoration-none p-1" href="/buyer/home">Dashboard </a>
+                                <a class="text-white text-decoration-none p-1" href="/buyer/home">Home </a>
                             </li>
                             <li class=" my-5">
-                                <a class="text-white text-decoration-none p-1" href="/buyer/category/{{auth()->user()->id}}">Orders </a>
+                                <a class="text-white text-decoration-none p-1" href="/buyer/orders/{{auth()->user()->id}}">Orders </a>
                             </li>
-                            <li class=" my-5">
-                                <a class="text-white text-decoration-none p-1" href="/buyer/product/{{auth()->user()->id}}">Product </a>
-                            </li>
-                            <li class=" my-5">
-                                <a class="text-white text-decoration-none p-1" href="/buyer/home">Dashboard </a>
-                            </li>
+                           
+                            
                         </ul>
                     </div>
             </div>
