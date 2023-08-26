@@ -61,8 +61,6 @@ class viewController extends Controller
     }
     public function sellerProductView($id)
     {
-
-
         $cData = itemCategory::where("id", $id)->get();
         $productData = DB::table("producrMaster")->where("id", $id)->get();
         $data = json_decode($productData, true);
@@ -98,5 +96,18 @@ class viewController extends Controller
         $products = DB::table('sellerOrder')->where("id", $id)->get();
         $orderList = json_decode($products, true);
         return view("dashboard.Buyer.buyerOrder", ["orderProducts" => $orderList]);
+    }
+    public function productDetail(){
+        return view("dashboard.Buyer.orderConfirm");
+    }
+    function viewCart($id){
+        
+        $products=DB::table("cartView")->where("buyerId",$id)->get();
+        $productList = json_decode($products, true);
+        $Bill = DB::table('cartView')
+        ->select(DB::raw('SUM(cast( productPrice as int)) as totalSale'))->where('buyerId', $id)
+        ->get();
+        $totalBill= json_decode($Bill, true);
+        return view("dashboard.Buyer.orderConfirm",["products"=>$productList,"totalBill"=>$totalBill]);
     }
 }

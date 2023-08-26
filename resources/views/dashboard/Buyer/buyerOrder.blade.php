@@ -1,8 +1,6 @@
 @extends('Layouts.index')
 @section('title', 'Orders')
 @section('content')
-
-
     <div class="sellerContainer flex">
         <div class="sidenav w-[14%]">
             @include('navbar.buyerSideNav')
@@ -10,7 +8,7 @@
         <div class="sellerSection w-[86%]">
             <div>
                 @include('navbar.topNavbar')
-                <div class="productList flex justify-center flex-wrap">
+                <div class="productList flex justify-center flex-wrap max-h-[40rem] overflow-auto">
                     @foreach ($orderProducts as $item)
                         <div class="max-w-sm w-full sm:w-1/2 lg:w-[24%] py-6 px-3 rounded">
                             <div class="bg-white shadow-xl rounded-lg">

@@ -27,7 +27,7 @@ class addData extends Controller
         $req->file('productImg')->move("products",$productImageName);
         // $productImg = file_get_contents($productImgName);
         DB::table("producrMaster")->insert(["productName" => $productName, "id" => $userId, "productDetail" => $productDetail, "productQty" => $productQty,"productCategory" => $productCategory,"productPrice"=>$productPrice,"productimg"=>$productImageName]);
-        return redirect()->route("seller.home");
+        return redirect()->route("seller.home",["uid"=>$userId]);
 
     }
 }

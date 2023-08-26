@@ -14,6 +14,9 @@
                             <li class=" my-5">
                                 <a class="text-white text-decoration-none p-1" href="/buyer/orders/{{auth()->user()->id}}">Orders </a>
                             </li>
+                            <li class=" my-5">
+                                <a class="text-white text-decoration-none p-1" href="/buyer/cart/{{auth()->user()->id}}">Cart </a>
+                            </li>
                            
                             
                         </ul>

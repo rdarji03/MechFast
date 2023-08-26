@@ -2,7 +2,6 @@
 @section('title', 'Home')
 @section("content")
 
-
 <div class="sellerContainer flex">
     <div class="sidenav w-[14%]">
         @include("navbar.buyerSideNav")
@@ -11,7 +10,7 @@
         <div>
             @include("navbar.topNavbar")
             <div class="productList">
-                <div class="productContainer flex justify-center my-4">
+                <div class="productContainer flex justify-center my-4 flex-wrap max-h-[40rem] overflow-auto">
 
                     @foreach ($products as $item)
                     <div class="max-w-sm w-full sm:w-1/2 lg:w-[24%] py-6 px-3 rounded">
@@ -35,7 +34,7 @@
                             </div>
                             
                                 <a href="/order/{{$item["ProductMasterid"]}}/{{auth()->user()->id}}/{{$item["id"]}}" class="flex justify-center p-1 border-t border-gray-300 bg-gray-100">
-                                    Order
+                                    Add To Cart
                                 </a>
                            
                         </div>

@@ -24,15 +24,18 @@ Route::get("/",[viewController::class,"loginView"])->name("user.login");
 Route::get("/register",[viewController::class,"registerView"])->name("user.register");
 Route::get("/sellerInfo/{id}",[viewController::class,"sellerinfoView"])->name("seller.info");
 Route::get("/buyer/home",[viewController::class,"byerDashBoardView"])->name("buyer.home");
+Route::get("/buyer/order/{id}",[viewController::class,"productDetail"])->name("buyer.pOrder");
 Route::get("/seller/category/delet/{categoryId}",[deletData::class,"deletCategory"]);
 Route::get('/logout', [authController::class, "logout"])->name("logout");
 
 Route::group(['middleware' => 'auth'], function () {
-    Route::get("/order/{ProductMasterid}/{id}/{sid}",[orderProduct::class,"placeOrder"]);
+    Route::get("/buyer/cart/{uid}",[viewController::class,"viewCart"]);
+    Route::get("/checkout/{uid}",[orderProduct::class,"placeOrder"]);
+    Route::get("/order/{ProductMasterid}/{uid}/{sid}",[orderProduct::class,"addProduct"]);
     Route::get("/seller/home/{uid}",[viewController::class,"sellerDashBoardView"])->name("seller.home");
     Route::get("/seller/category/{id}",[viewController::class,"sellerCategoryView"])->name("seller.category");
     Route::get("/seller/product/{id}",[viewController::class,"sellerProductView"])->name("seller.product");
-    Route::get("/seller/profile/{id}",[viewController::class,"sellerProfileView"])->name("seller.profile");
+    Route::get("/seller/home/profile/{id}",[viewController::class,"sellerProfileView"])->name("seller.profile");
     Route::get("/buyer/profile/{id}",[viewController::class,"buyerProfileView"])->name("buyer.profile");
     Route::get("/seller/orders/{id}",[viewController::class,"sellerOrderView"])->name("seller.order");
     Route::get("/seller/orders/accepted/{pid}",[editData::class,"acceptedOrder"])->name("out.order");

@@ -44,7 +44,7 @@ class authController extends Controller
         $user = User::create($data);
         
         if ($user) {
-            return redirect()->route("user.login");
+            return redirect()->route("seller.info",["id"=>$user["id"]]);
         } else {
             return "fail";
         }
