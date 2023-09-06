@@ -17,6 +17,7 @@
                             
                             <thead>
                                 <tr>
+                                    <th scope="col" class=" text-center" style="text-align: center">Sr no</th>
                                     <th scope="col" class=" text-center" style="text-align: center">Product Name</th>
                                     <th scope="col" class="text-center" style="text-align: center">Buyers Name</th>
                                     <th scope="col" class="text-center" style="text-align: center">Buyers Email</th>
@@ -31,6 +32,7 @@
                                 <div class="">
                                     @foreach ($products as $item)
                                         <tr>
+                                            <td>{{ $item['orderedProductid'] }}</td>
                                             <td>{{ $item['productName'] }}</td>
                                             <td>{{ $item['name'] }}</td>
                                             <td>{{ $item['email'] }}</td>

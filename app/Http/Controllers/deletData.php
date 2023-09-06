@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\DB;
 class deletData extends Controller
 {
     function deletCategory($id){
-        return DB::table('itemCategory')->where('categoryId', $id)->delete();
+         DB::table('itemCategory')->where('categoryId', $id)->delete();
+         return back();
+    }
+    function deletItem($cid){
+        DB::table("buyerCart")->where('cartId',$cid)->delete();
+        return back();
     }
 }

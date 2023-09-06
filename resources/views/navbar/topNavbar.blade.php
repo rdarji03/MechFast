@@ -1,5 +1,5 @@
 <nav class="flex items-center justify-between flex-wrap py-2 px-3 shadow-md shadow-slate-500 bg-white">
-    <a href="profile/{{auth()->user()->id}}" target="_blank" rel="noopener noreferrer">
+    <a href="{{ url('profile/'.auth()->user()->id)}}" target="_blank" rel="noopener noreferrer">
         <div class="flex items-center text-white mr-6">
             <img src="{{asset("img/logo/userLogo.png")}}" alt="" srcset="" class="h-[2rem]">
             <h4 class="text-[1.5rem] text-black">{{auth()->user()->name}}</h4>
@@ -13,3 +13,5 @@
     </div>
     </div>
 </nav>
+
+{{-- buyer/profile/{{}} --}}

@@ -26,11 +26,14 @@ class viewController extends Controller
         //https://mechfast.pythonanywhere.com/city/?state=Gujarat
         return view("dashboard.forms.sellerInfoForm", ["states" => $stateData]);
     }
-    public function byerDashBoardView()
+    public function byerDashBoardView($uid)
     {
         $productList = new productView;
         $products = $productList->get();
-        return view("dashboard.Buyer.buyerHome", ["products" => $products]);
+        $totalItem= DB::table('buyerCart')
+        ->select(DB::raw('count(cartId) as totalOrder'))
+            ->where('buyerId', '=', $uid)->count();
+        return view("dashboard.Buyer.buyerHome", ["products" => $products,"item"=>$totalItem]);
     }
     public function sellerDashBoardView($sid)
     {
@@ -51,7 +54,7 @@ class viewController extends Controller
             ->get();
         $totalOrderinDelivery = json_decode($inDelivery, true);
 
-        return view("dashboard.Seller.sellerhome", ["totalorder" => $totalOrders, "totalSale" => $totalSale,"totalPending"=>$totalPending,"totalOrderinDelivery"=>$totalOrderinDelivery]);
+        return view("dashboard.Seller.sellerhome", ["totalorder" => $totalOrders, "totalSale" => $totalSale, "totalPending" => $totalPending, "totalOrderinDelivery" => $totalOrderinDelivery]);
     }
     public function sellerCategoryView($id)
     {
@@ -76,13 +79,15 @@ class viewController extends Controller
         return view("dashboard.Seller.sellerProfile", ["uInfo" => $uInfo, "states" => $stateData]);
     }
     public function buyerProfileView($id)
-    {
+    {   $totalItem= DB::table('buyerCart')
+        ->select(DB::raw('count(cartId) as totalOrder'))
+            ->where('buyerId', '=', $id)->count();
         $stateList = Http::get('https://mechfastapi.pythonanywhere.com/states/');
         $stateData = json_decode($stateList, true);
         //https://mechfast.pythonanywhere.com/city/?state=Gujarat
         $userProfile = DB::table("userDetail")->where("id", $id)->get();
         $uInfo = json_decode($userProfile, true);
-        return view("dashboard.Buyer.buyerProfile", ["uInfo" => $uInfo, "states" => $stateData]);
+        return view("dashboard.Buyer.buyerProfile", ["uInfo" => $uInfo, "states" => $stateData,"item"=>$totalItem]);
     }
     public function sellerOrderView($id)
     {
@@ -92,22 +97,28 @@ class viewController extends Controller
     }
     public function viewOrder($id)
     {
-
+        $totalItem= DB::table('buyerCart')
+        ->select(DB::raw('count(cartId) as totalOrder'))
+            ->where('buyerId', '=', $id)->count();
         $products = DB::table('sellerOrder')->where("id", $id)->get();
         $orderList = json_decode($products, true);
-        return view("dashboard.Buyer.buyerOrder", ["orderProducts" => $orderList]);
+        return view("dashboard.Buyer.buyerOrder", ["orderProducts" => $orderList,"item"=>$totalItem]);
     }
-    public function productDetail(){
+    public function productDetail()
+    {
         return view("dashboard.Buyer.orderConfirm");
     }
-    function viewCart($id){
-        
-        $products=DB::table("cartView")->where("buyerId",$id)->get();
+    function viewCart($id)
+    {
+        $totalItem= DB::table('buyerCart')
+        ->select(DB::raw('count(cartId) as totalOrder'))
+            ->where('buyerId', '=', $id)->count();
+        $products = DB::table("cartView")->where("buyerId", $id)->get();
         $productList = json_decode($products, true);
         $Bill = DB::table('cartView')
-        ->select(DB::raw('SUM(cast( productPrice as int)) as totalSale'))->where('buyerId', $id)
-        ->get();
-        $totalBill= json_decode($Bill, true);
-        return view("dashboard.Buyer.orderConfirm",["products"=>$productList,"totalBill"=>$totalBill]);
+            ->select(DB::raw('SUM(cast( productPrice as int)) as totalSale'))->where('buyerId', $id)
+            ->get();
+        $totalBill = json_decode($Bill, true);
+        return view("dashboard.Buyer.orderConfirm", ["products" => $productList, "totalBill" => $totalBill,"item"=>$totalItem]);
     }
 }

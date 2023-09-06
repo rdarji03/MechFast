@@ -9,8 +9,8 @@
         <div class="sellerSection w-[86%]">
             <div>
                 @include('navbar.topNavbar')
-                <div class="cart">
-                    <div class="cartContainer my-4 bg-white">
+                <div class="cart p-3">
+                    <div class="cartContainer my-4 bg-white rounded">
                         <div class="flex shadow-md">
                             <div class="w-3/4 px-10 py-10">
                                 <div class="flex justify-between border-b pb-8">
@@ -27,10 +27,13 @@
                                                 Image</th>
                                             <th scope="col" class="text-center" style="text-align: center">Product
                                                 Price</th>
+                                            <th scope="col" class="text-center" style="text-align: center">
+                                                Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($products as $products)
+                                            
                                             <tr>
                                                 <td>{{ $products['productName'] }}</td>
                                                 <td>{{ $products['productDetail'] }}</td>
@@ -38,6 +41,12 @@
                                                         src="/products/{{ $products['productImg'] }}"
                                                         class="h-[3.5rem] w-auto" alt="ntg" srcset="">
                                                 <td>{{ $products['productPrice'] }}</td>
+                                                <td > <a href={{ url('delet/item/'.$products['cartId'] )}}>
+                                                    <button class="bg-red-400 mx-2 p-1  border rounded">
+                                                        <img src="{{ asset("img/action-icons/delet.png") }}"
+                                                            class="h-[1.5rem]" alt="description of myimage">
+                                                    </button>
+                                                </a></td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -47,10 +56,7 @@
 
                             <div id="summary" class="w-1/4 px-8 py-10">
                                 <h1 class="font-semibold text-2xl border-b pb-8">Order Summary</h1>
-                                <div class="flex justify-between mt-10 mb-5">
-                                    <span class="font-semibold text-sm uppercase">Items 3</span>
-                                    <span class="font-semibold text-sm">590$</span>
-                                </div>
+
                                 <div>
                                     <label class="font-medium inline-block mb-3 text-sm uppercase">Shipping</label>
                                     <select class="block p-2 text-gray-600 w-full text-sm">
@@ -68,10 +74,11 @@
                                 <div class="border-t mt-8">
                                     <div class="flex font-semibold justify-between py-6 text-sm uppercase">
                                         <span>Total cost</span>
-                                        <span>{{$totalBill[0]["totalSale"]}}</span>
+                                        <span>{{ $totalBill[0]['totalSale'] }}</span>
                                     </div>
                                     <button
-                                        class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full"><a href="/checkout/{{auth()->user()->id}}">Checkout</a></button>
+                                        class="bg-indigo-500 font-semibold hover:bg-indigo-600 py-3 text-sm text-white uppercase w-full"><a
+                                            href="/checkout/{{ auth()->user()->id }}">Checkout</a></button>
                                 </div>
                             </div>
 

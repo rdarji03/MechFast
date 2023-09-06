@@ -14,7 +14,8 @@ export default {
     },
     plugins: [
         require("tw-elements/dist/plugin.cjs"),
-        require('flowbite/plugin')
+        require('flowbite/plugin'),
+        require('tailwind-scrollbar')({ nocompatible: true })
 
     ],
 }
