@@ -10,8 +10,10 @@
             <div>
                 @include('navbar.topNavbar')
                 <div class="productList">
-                    <div class="productContainer flex justify-center my-4 flex-wrap max-h-[40rem] overflow-auto">
-
+                    <div class="productContainer flex justify-center flex-col items-center my-4 flex-wrap max-h-[40rem] overflow-auto">
+                        <div class="searchProduct">
+                            <input type="text" name="searchProduct" id="" class="rounded typeahead">
+                        </div>
                         @foreach ($products as $item)
                             <div class="max-w-sm w-full sm:w-1/2 lg:w-[24%] py-6 px-3 rounded">
                                 <div class="bg-white shadow-xl rounded-lg">

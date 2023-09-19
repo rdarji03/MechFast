@@ -7,6 +7,7 @@ use App\Http\Controllers\orderProduct;
 use App\Http\Controllers\submitData;
 use App\Http\Controllers\viewController;
 use App\Http\Controllers\editData;
+use App\Http\Controllers\searchSuggestion;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,6 +28,8 @@ Route::get("/buyer/order/{id}",[viewController::class,"productDetail"])->name("b
 Route::get("/seller/category/delet/{categoryId}",[deletData::class,"deletCategory"]);
 Route::get('/logout', [authController::class, "logout"])->name("logout");
 Route::get('delet/item/{cId}', [deletData::class, "deletItem"])->name("cart.deletItem");
+Route::get('/autocomplete-search-query', [searchSuggestion::class, 'query'])->name('autocomplete.search.query');
+
 Route::group(['middleware' => 'auth'], function () {
     Route::get("/buyer/home/{uid}",[viewController::class,"byerDashBoardView"])->name("buyer.home");
     Route::get("/buyer/cart/{uid}",[viewController::class,"viewCart"]);

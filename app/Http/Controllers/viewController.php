@@ -21,7 +21,7 @@ class viewController extends Controller
     }
     public function sellerinfoView()
     {
-        $stateList = Http::get('https://mechfast.pythonanywhere.com/states/');
+        $stateList = Http::get('https://mechfastapi.pythonanywhere.com/states/');
         $stateData = json_decode($stateList, true);
         //https://mechfast.pythonanywhere.com/city/?state=Gujarat
         return view("dashboard.forms.sellerInfoForm", ["states" => $stateData]);
@@ -30,13 +30,15 @@ class viewController extends Controller
     {
         $productList = new productView;
         $products = $productList->get();
-        $totalItem= DB::table('buyerCart')
-        ->select(DB::raw('count(cartId) as totalOrder'))
+        $totalItem = DB::table('buyerCart')
+            ->select(DB::raw('count(cartId) as totalOrder'))
             ->where('buyerId', '=', $uid)->count();
-        return view("dashboard.Buyer.buyerHome", ["products" => $products,"item"=>$totalItem]);
+        return view("dashboard.Buyer.buyerHome", ["products" => $products, "item" => $totalItem]);
     }
     public function sellerDashBoardView($sid)
     {
+        $chartData = DB::table("orderedProduct")->select([DB::raw("count(orderedDate) as totalOrder"), "orderedDate"])->groupBy(DB::raw("orderedDate"))->where('sellerid', $sid)->get();
+        $axisData = json_decode($chartData, true);
         $totalOrders = DB::table("orderedProduct")
             ->select(DB::raw('count(orderedProductid) as totalOrder'))
             ->where('sellerid', '=', $sid)->count();
@@ -53,8 +55,12 @@ class viewController extends Controller
             ->select(DB::raw('count(orderStatus) as pendingOrder'))->where('sellerid', $sid)->where("orderStatus", 1)
             ->get();
         $totalOrderinDelivery = json_decode($inDelivery, true);
+        $analysisData = "";
+        foreach ($axisData as $aData) {
+            $analysisData .= " ['" . $aData["orderedDate"] . "', " . $aData["totalOrder"] . "],";
+        }
 
-        return view("dashboard.Seller.sellerhome", ["totalorder" => $totalOrders, "totalSale" => $totalSale, "totalPending" => $totalPending, "totalOrderinDelivery" => $totalOrderinDelivery]);
+        return view("dashboard.Seller.sellerhome", ["totalorder" => $totalOrders, "totalSale" => $totalSale, "totalPending" => $totalPending, "totalOrderinDelivery" => $totalOrderinDelivery, "axisData" => $analysisData]);
     }
     public function sellerCategoryView($id)
     {
@@ -79,15 +85,16 @@ class viewController extends Controller
         return view("dashboard.Seller.sellerProfile", ["uInfo" => $uInfo, "states" => $stateData]);
     }
     public function buyerProfileView($id)
-    {   $totalItem= DB::table('buyerCart')
-        ->select(DB::raw('count(cartId) as totalOrder'))
+    {
+        $totalItem = DB::table('buyerCart')
+            ->select(DB::raw('count(cartId) as totalOrder'))
             ->where('buyerId', '=', $id)->count();
         $stateList = Http::get('https://mechfastapi.pythonanywhere.com/states/');
         $stateData = json_decode($stateList, true);
         //https://mechfast.pythonanywhere.com/city/?state=Gujarat
         $userProfile = DB::table("userDetail")->where("id", $id)->get();
         $uInfo = json_decode($userProfile, true);
-        return view("dashboard.Buyer.buyerProfile", ["uInfo" => $uInfo, "states" => $stateData,"item"=>$totalItem]);
+        return view("dashboard.Buyer.buyerProfile", ["uInfo" => $uInfo, "states" => $stateData, "item" => $totalItem]);
     }
     public function sellerOrderView($id)
     {
@@ -97,12 +104,12 @@ class viewController extends Controller
     }
     public function viewOrder($id)
     {
-        $totalItem= DB::table('buyerCart')
-        ->select(DB::raw('count(cartId) as totalOrder'))
+        $totalItem = DB::table('buyerCart')
+            ->select(DB::raw('count(cartId) as totalOrder'))
             ->where('buyerId', '=', $id)->count();
         $products = DB::table('sellerOrder')->where("id", $id)->get();
         $orderList = json_decode($products, true);
-        return view("dashboard.Buyer.buyerOrder", ["orderProducts" => $orderList,"item"=>$totalItem]);
+        return view("dashboard.Buyer.buyerOrder", ["orderProducts" => $orderList, "item" => $totalItem]);
     }
     public function productDetail()
     {
@@ -110,8 +117,8 @@ class viewController extends Controller
     }
     function viewCart($id)
     {
-        $totalItem= DB::table('buyerCart')
-        ->select(DB::raw('count(cartId) as totalOrder'))
+        $totalItem = DB::table('buyerCart')
+            ->select(DB::raw('count(cartId) as totalOrder'))
             ->where('buyerId', '=', $id)->count();
         $products = DB::table("cartView")->where("buyerId", $id)->get();
         $productList = json_decode($products, true);
@@ -119,6 +126,6 @@ class viewController extends Controller
             ->select(DB::raw('SUM(cast( productPrice as int)) as totalSale'))->where('buyerId', $id)
             ->get();
         $totalBill = json_decode($Bill, true);
-        return view("dashboard.Buyer.orderConfirm", ["products" => $productList, "totalBill" => $totalBill,"item"=>$totalItem]);
+        return view("dashboard.Buyer.orderConfirm", ["products" => $productList, "totalBill" => $totalBill, "item" => $totalItem]);
     }
 }
