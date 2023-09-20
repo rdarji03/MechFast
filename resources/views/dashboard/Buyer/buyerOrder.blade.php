@@ -11,13 +11,12 @@
                 <div class="productList flex flex-col items-center justify-center flex-wrap ">
                     <p class="my-3 text-lg md:text-xl dark:text-white font-semibold leading-6 xl:leading-5 text-gray-800">
                         Your Cart</p>
-
                     <div class=" px-4 md:px-6 w-[50rem]">
                         <div
-                        class=" flex flex-col xl:flex-row jusitfy-center items-stretch w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
-                        <div
-                        class="max-h-[40rem] overflow-auto scrollbar  scrollbar-track-white scrollbar-thumb-gray-800 scrollbar-thumb-rounded-full scrollbar-w-2 flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
-                        <div
+                            class=" flex flex-col xl:flex-row jusitfy-center items-stretch w-full xl:space-x-8 space-y-4 md:space-y-6 xl:space-y-0">
+                            <div
+                                class="max-h-[40rem] overflow-auto scrollbar  scrollbar-track-white scrollbar-thumb-gray-800 scrollbar-thumb-rounded-full scrollbar-w-2 flex flex-col justify-start items-start w-full space-y-4 md:space-y-6 xl:space-y-8">
+                                <div
                                     class="flex flex-col justify-start items-start dark:bg-gray-800 bg-gray-50 px-4 py-4 md:py-6 md:p-6 xl:p-8 w-full">
                                     @foreach ($orderProducts as $item)
                                         <div

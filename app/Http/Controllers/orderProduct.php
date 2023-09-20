@@ -16,7 +16,7 @@ class orderProduct extends Controller
             DB::table("orderedProduct")->insert(["ProductMasterid" => $orderList[$i]["ProductMasterid"], "id" => $orderList[$i]["buyerId"], "sellerid" => $orderList[$i]["sellerId"]]);
         }
         $order = DB::table("buyerCart")->where("buyerId", $uid)->delete();
-        return "done";
+        return redirect()->back()->with("success","Your Order Has Been Placed");
     }
 
     function addProduct($oid, $uid, $sid)

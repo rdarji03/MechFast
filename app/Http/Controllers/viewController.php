@@ -37,7 +37,7 @@ class viewController extends Controller
     }
     public function sellerDashBoardView($sid)
     {
-        $chartData = DB::table("orderedProduct")->select([DB::raw("count(orderedDate) as totalOrder"), "orderedDate"])->groupBy(DB::raw("orderedDate"))->where('sellerid', $sid)->get();
+        $chartData = DB::table("totalSale")->select([DB::raw("sum(cast(productPrice as int)) as totalOrder"), "orderedDate"])->groupBy(DB::raw("orderedDate"))->where('sellerid', $sid)->get();
         $axisData = json_decode($chartData, true);
         $totalOrders = DB::table("orderedProduct")
             ->select(DB::raw('count(orderedProductid) as totalOrder'))
@@ -59,8 +59,13 @@ class viewController extends Controller
         foreach ($axisData as $aData) {
             $analysisData .= " ['" . $aData["orderedDate"] . "', " . $aData["totalOrder"] . "],";
         }
+        if (strlen($analysisData) > 0) {
+            $chartValue = $analysisData;
+        } else {
+            $chartValue = "[0,0]";
+        }
 
-        return view("dashboard.Seller.sellerhome", ["totalorder" => $totalOrders, "totalSale" => $totalSale, "totalPending" => $totalPending, "totalOrderinDelivery" => $totalOrderinDelivery, "axisData" => $analysisData]);
+        return view("dashboard.Seller.sellerhome", ["totalorder" => $totalOrders, "totalSale" => $totalSale, "totalPending" => $totalPending, "totalOrderinDelivery" => $totalOrderinDelivery, "axisData" => $chartValue]);
     }
     public function sellerCategoryView($id)
     {

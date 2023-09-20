@@ -88,8 +88,8 @@
 
                     </div>
                 </div>
-                <div class="saleChart">
-                    <div id="curve_chart" style="width: 900px; height: 500px">
+                <div class="saleChart flex justify-center">
+                    <div id="curve_chart" class=" shadow-lg" style="width: 900px; height: 500px">
 
                     </div>
 
@@ -107,8 +107,8 @@
 
     function drawChart() {
         var data = google.visualization.arrayToDataTable([
-            ['Year', 'Sales'],
-            <?php echo $axisData;?>
+            ['Year', ''],
+            <?php echo $axisData; ?>
         ]);
 
         var options = {
